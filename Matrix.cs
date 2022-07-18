@@ -18,6 +18,11 @@ namespace Matrix_Calculator
             arr = new double [h,w];
         }
 
+        public bool isSquare()
+        {
+            return height == width;
+        }
+
         public bool read()
         {
             for (int i = 0 ; i < height ; i++)

@@ -116,7 +116,7 @@ namespace Matrix_Calculator
         // determinant can only be found for square matrices
         public bool checkValidMatrix(Matrix a)
         {
-            if (a.height == a.width)
+            if (a.isSquare())
             {
                 return true;
             }
@@ -199,7 +199,7 @@ namespace Matrix_Calculator
         // inverse requires square matrices
         public bool checkValidMatrix(Matrix a)
         {
-            if (a.height == a.width)
+            if (a.isSquare())
             {
                 return true;
             }
@@ -278,6 +278,40 @@ namespace Matrix_Calculator
                     ans.arr[i, j-a.width] = gj.arr[i,j];
                 }
             }
+            return ans;
+        }
+    }
+
+    public class ZeroMatrix : IEmptyMatriX
+    {
+        public Matrix createMatrix(int r, int c)
+        {
+            Matrix ans = new Matrix(r,c);
+
+            return ans;
+        }
+    }
+
+    public class IdentityMatrix : IEmptyMatriX
+    {
+        public Matrix createMatrix(int r, int c)
+        {
+            Matrix ans = new Matrix(r,c);
+            for (int i = 0; i < r; i++)
+            {
+                for (int j = 0; j < c; j++)
+                {
+                    if (i == j)
+                    {
+                        ans.arr[i,j] = 1;
+                    }
+                    else
+                    {
+                        ans.arr[i,j] = 0;
+                    }
+                }
+            }
+
             return ans;
         }
     }

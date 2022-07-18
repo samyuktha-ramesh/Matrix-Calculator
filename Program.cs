@@ -63,7 +63,7 @@ namespace Matrix_Calculator
         public static void Main()
         {
             welcomeMsg();
-            WriteLine("The possible operations are +, -, *, determinant, inverse, transpose");
+            WriteLine("The possible operations are +, -, *, determinant, inverse, transpose, zero and identity");
             WriteLine("Please enter the operation you would like: ");
             string op = ReadLine();
             WriteLine();
@@ -88,7 +88,7 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                switch(op)
+                switch (op)
                 {
                     case "+":
                     Addition add = new Addition();
@@ -152,7 +152,7 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                switch(op.ToLower())
+                switch (op.ToLower())
                 {
                     case "transpose":
                         Transpose transpose = new Transpose();
@@ -195,6 +195,49 @@ namespace Matrix_Calculator
                         {
                             WriteLine("Inverse requires a square matrix");
                             exitMsg();
+                        }
+                        break;
+                }
+            }
+            else if (op.ToLower() == "zero" || op.ToLower() == "identity")
+            {
+                switch (op.ToLower())
+                {
+                    case "zero":
+                        try
+                        {
+                            WriteLine("Enter height of required matrix:");
+                            int h = int.Parse(ReadLine());
+                            WriteLine();
+
+                            WriteLine("Enter width of required matrix:");
+                            int w = int.Parse(ReadLine());
+                            WriteLine();
+
+                            ZeroMatrix zero = new ZeroMatrix();
+                            ans = zero.createMatrix(h,w);
+                            printAns(ans);
+                        }
+                        catch
+                        {
+                            wrongInputFormat();
+                        }
+                        break;
+
+                    case "identity":
+                        try
+                        {
+                            WriteLine("Enter height of required matrix:");
+                            int h = int.Parse(ReadLine());
+                            WriteLine();
+
+                            IdentityMatrix id = new IdentityMatrix();
+                            ans = id.createMatrix(h,h);
+                            printAns(ans);
+                        }
+                        catch
+                        {
+                            wrongInputFormat();
                         }
                         break;
                 }

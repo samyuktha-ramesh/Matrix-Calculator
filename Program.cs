@@ -146,7 +146,7 @@ namespace Matrix_Calculator
                         }
                         else
                         {
-                            WriteLine("Subtraction requires matrices to have dimensions lxm and mxn");
+                            WriteLine("Multiplication requires matrices to have dimensions lxm and mxn");
                             exitMsg();
                         }
                         break;

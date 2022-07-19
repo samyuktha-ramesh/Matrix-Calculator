@@ -16,7 +16,7 @@ namespace Matrix_Calculator
         Matrix operation(Matrix a, Matrix b);
     }
 
-    interface INewMatriX
+    interface INullaryOperation
     {
         Matrix createMatrix(int r, int c);
     }

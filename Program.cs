@@ -76,12 +76,60 @@ namespace Matrix_Calculator
             return a;
         }
 
+        public static IBinaryOperation parseBinaryOperation(string op)
+        {
+            if (op == "+")
+            {
+                return new Addition();
+            }
+            else if (op == "-")
+            {
+                return new Subtraction();
+            }
+            else
+            {
+                return new Multiplication();
+            }
+        }
+
+        public static IUnaryOperation parseUnaryOperation(string op)
+        {
+            if (op == "determinant")
+            {
+                return new Determinant();
+            }
+            else if (op == "inverse")
+            {
+                return new Inverse();
+            }
+            else
+            {
+                return new Transpose();
+            }
+        }
+
+        public static INullaryOperation parseNullOperation(string op)
+        {
+            if (op == "zero")
+            {
+                return new ZeroMatrix();
+            }
+            else if (op == "identity")
+            {
+                return new IdentityMatrix();
+            }
+            else
+            {
+                return new RandomMatrix();
+            }
+        }
+
         public static void Main()
         {
             welcomeMsg();
             WriteLine("The possible operations are +, -, *, determinant, inverse, transpose, zero, identity and random");
             WriteLine("Please enter the operation you would like: ");
-            string op = ReadLine();
+            string op = ReadLine().Trim().ToLower();
             WriteLine();
             Matrix a;
             Matrix b;
@@ -104,57 +152,19 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                switch (op)
+                IBinaryOperation binOp = parseBinaryOperation(op);
+
+                if (binOp.checkValidMatrices(a,b))
                 {
-                    case "+":
-                    Addition add = new Addition();
-
-                    if (add.checkValidMatrices(a,b))
-                    {
-                        ans = add.operation(a,b);
-                        printAns(ans);
-                    }
-                    else{
-
-                        WriteLine("Addition requires both matrices to have same dimensions.");
-                        exitMsg();
-                    }
-                    break;
-
-                    case "-":
-                        Subtraction sub = new Subtraction();
-                        
-                        if (sub.checkValidMatrices(a,b))
-                        {
-                            ans = sub.operation(a,b);
-                            printAns(ans);
-                        }
-                        else 
-                        {
-                            WriteLine("Subtraction requires both matrices to have same dimensions.");
-                            exitMsg();
-                        }
-                        break;
-
-                    case "*":
-                        Multiplication mul = new Multiplication();
-
-                        if (mul.checkValidMatrices(a,b))
-                        {
-                            ans = mul.operation(a,b);
-                            printAns(ans);
-                        }
-                        else
-                        {
-                            WriteLine("Multiplication requires matrices to have dimensions lxm and mxn");
-                            exitMsg();
-                        }
-                        break;
-
+                    ans = binOp.operation(a,b);
+                    printAns(ans);
+                }
+                else{
+                    exitMsg();
                 }
             }
 
-            else if (op.ToLower() == "transpose" || op.ToLower() == "determinant" || op.ToLower() == "inverse")
+            else if (op == "transpose" || op == "determinant" || op == "inverse")
             {
                 try
                 {
@@ -168,154 +178,64 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                switch (op.ToLower())
+                IUnaryOperation unaryOp = parseUnaryOperation(op);
+
+                if (unaryOp.checkValidMatrix(a))
                 {
-                    case "transpose":
-                        Transpose transpose = new Transpose();
-                        
-                        ans = transpose.operation(a);
-                        printAns(ans);
-                        break;
-
-                    case "determinant":
-                        Determinant det = new Determinant();
-
-                        if (det.checkValidMatrix(a))
-                        {
-                            WriteLine("Determinant = " + det.operation(a));
-                        }
-                        else
-                        {
-                            WriteLine("Determinant requires a square matrix");
-                            exitMsg();
-                        }
-                        break;
-
-                    case "inverse":
-                        Inverse inv = new Inverse();
-
-                        if (inv.checkValidMatrix(a))
-                        {
-                            if (inv.isSingular(a))
-                            {
-                                WriteLine("Matrix is singular. No inverse exists");
-                                exitMsg();
-                            }
-                            else
-                            {
-                                ans = inv.operation(a);
-                                printAns(ans);
-                            }
-                        }
-                        else
-                        {
-                            WriteLine("Inverse requires a square matrix");
-                            exitMsg();
-                        }
-                        break;
+                    ans = unaryOp.operation(a);
+                    printAns(ans);
+                }
+                else
+                {
+                    exitMsg();
                 }
             }
-            else if (op.ToLower() == "zero" || op.ToLower() == "identity" || op.ToLower() == "random")
+
+            else if (op == "zero" || op == "identity" || op == "random")
             {
                 int h = 0;
                 int w = 0;
-
-                switch (op.ToLower())
+                
+                try
                 {
-                    case "zero":
-                        try
+                    while (h <= 0)
+                    {
+                        WriteLine("Enter height of required matrix:");
+                        h = int.Parse(ReadLine());
+                        if (h <= 0)
                         {
-                            while (h <= 0)
+                            WriteLine("Height needs to be greater than zero. Please try again.");
+                        }
+                    }
+                    WriteLine();
+
+                    if (op == "identity")
+                    {
+                        w = h;
+                    }
+                    else
+                    {
+                        while (w <= 0)
+                        {
+                            WriteLine("Enter width of required matrix:");
+                            w = int.Parse(ReadLine());
+                            if (w <= 0)
                             {
-                                WriteLine("Enter height of required matrix:");
-                                h = int.Parse(ReadLine());
-                                if (h <= 0)
-                                {
-                                    WriteLine("Height needs to be greater than zero. Please try again.");
-                                }
+                                WriteLine("Width needs to be greater than zero. Please try again.");
                             }
-                            WriteLine();
-
-                            while (w <= 0)
-                            {
-                                WriteLine("Enter width of required matrix:");
-                                w = int.Parse(ReadLine());
-                                if (w <= 0)
-                                {
-                                    WriteLine("Width needs to be greater than zero. Please try again.");
-                                }
-                            }
-                            WriteLine();
-
-                            ZeroMatrix zero = new ZeroMatrix();
-                            ans = zero.createMatrix(h,w);
-                            printAns(ans);
                         }
-                        catch
-                        {
-                            wrongInputFormat();
-                        }
-                        break;
-
-                    case "identity":
-                        try
-                        {
-                            while (h <= 0)
-                            {
-                                WriteLine("Enter height of required matrix:");
-                                h = int.Parse(ReadLine());
-                                if (h <= 0)
-                                {
-                                    WriteLine("Height needs to be greater than zero. Please try again.");
-                                }
-                            }
-                            WriteLine();
-
-                            IdentityMatrix id = new IdentityMatrix();
-                            ans = id.createMatrix(h,h);
-                            printAns(ans);
-                        }
-                        catch
-                        {
-                            wrongInputFormat();
-                        }
-                        break;
-                    
-                    case "random":
-                        try
-                        {
-                            while (h <= 0)
-                            {
-                                WriteLine("Enter height of required matrix:");
-                                h = int.Parse(ReadLine());
-                                if (h <= 0)
-                                {
-                                    WriteLine("Height needs to be greater than zero. Please try again.");
-                                }
-                            }
-                            WriteLine();
-
-                            while (w <= 0)
-                            {
-                                WriteLine("Enter width of required matrix:");
-                                w = int.Parse(ReadLine());
-                                if (w <= 0)
-                                {
-                                    WriteLine("Width needs to be greater than zero. Please try again.");
-                                }
-                            }
-                            WriteLine();
-
-                            RandomMatrix r = new RandomMatrix();
-                            ans = r.createMatrix(h,w);
-                            printAns(ans);
-                        }
-                        catch
-                        {
-                            wrongInputFormat();
-                        }
-                        break;
+                        WriteLine();
+                    }
                 }
+                catch
+                {
+                    wrongInputFormat();
+                }
+
+                INullaryOperation nullOp = parseNullOperation(op);
+
+                ans = nullOp.createMatrix(h,w);
+                printAns(ans);
             }
             else{
                 WriteLine("No such operation exists.");

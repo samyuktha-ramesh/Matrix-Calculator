@@ -13,6 +13,8 @@ namespace Matrix_Calculator
             {
                 return true;
             }
+
+            WriteLine("Addition requires both matrices to have same dimensions.");
             return false;
         }
 
@@ -42,6 +44,8 @@ namespace Matrix_Calculator
             {
                 return true;
             }
+
+            WriteLine("Subtraction requires both matrices to have same dimensions.");
             return false;
         }
 
@@ -70,6 +74,8 @@ namespace Matrix_Calculator
             {
                 return true;
             }
+
+            WriteLine("Multiplication requires matrices to have dimensions lxm and mxn");
             return false;
         }
 
@@ -118,7 +124,7 @@ namespace Matrix_Calculator
         }
     }
 
-    public class Determinant
+    public class Determinant : IUnaryOperation
     {
         // determinant can only be found for square matrices
         public bool checkValidMatrix(Matrix a)
@@ -127,6 +133,8 @@ namespace Matrix_Calculator
             {
                 return true;
             }
+
+            WriteLine("Determinant requires a square matrix");
             return false;
         }
 
@@ -171,17 +179,21 @@ namespace Matrix_Calculator
         }
 
         // recursive function to find determinant
-        public double operation(Matrix a)
+        public Matrix operation(Matrix a)
         {
+            Matrix ans = new Matrix(1,1);
+
             if (a.height > 2)
             {
                 double det = 0;
                 for (int col = 0; col < a.width; col++)
                 {
                     Matrix sub = subMatrix(a, 0, col);
-                    det += (a.arr[0,col] * sign(0,col) * operation(sub));
+                    det += (a.arr[0,col] * sign(0,col) * operation(sub).arr[0,0]);
                 }
-                return det;
+
+                ans.arr[0,0] = det;
+                return ans;
             }
             else if (a.height == 2)
             {
@@ -191,12 +203,14 @@ namespace Matrix_Calculator
                 double x = a.arr[0,1];
                 double y = a.arr[1,0];
                 double z = a.arr[1,1];
-                return (w*z - x*y);
+
+                ans.arr[0,0] = (w*z - x*y);
+                return ans;
             }
             else 
             {
                 // matrix is of size 1 so determinant is equal to its only element
-                return a.arr[0,0]; 
+                return a;
             }   
         }
     }
@@ -208,8 +222,16 @@ namespace Matrix_Calculator
         {
             if (a.isSquare())
             {
+                if (isSingular(a))
+                {
+                    return false;
+                }
                 return true;
             }
+            else{
+                WriteLine("Inverse requires a square matrix");
+            }
+            
             return false;
         }
 
@@ -217,10 +239,12 @@ namespace Matrix_Calculator
         public bool isSingular(Matrix a){
             Determinant det = new Determinant();
 
-            if (det.operation(a) == 0)
+            if (det.operation(a).arr[0,0] == 0)
             {
+                WriteLine("Matrix is singular. No inverse exists");
                 return true;
             }
+
             return false;
         }
 
@@ -292,7 +316,7 @@ namespace Matrix_Calculator
         }
     }
 
-    public class ZeroMatrix : INewMatriX
+    public class ZeroMatrix : INullaryOperation
     {
         //returns matrix of given dimensions filled with zeroes
         public Matrix createMatrix(int r, int c)
@@ -303,7 +327,7 @@ namespace Matrix_Calculator
         }
     }
 
-    public class IdentityMatrix : INewMatriX
+    public class IdentityMatrix : INullaryOperation
     {
         //returns identity matrix of given dimension
         public Matrix createMatrix(int r, int c)
@@ -328,7 +352,7 @@ namespace Matrix_Calculator
         }
     }
 
-    public class RandomMatrix : INewMatriX
+    public class RandomMatrix : INullaryOperation
     {
         //returns matrix of given dimensions filled with random numbers
         public Matrix createMatrix(int r, int c)

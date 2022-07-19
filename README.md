@@ -9,7 +9,7 @@ Welcome to the Matrix Calculator!
 ---------------------------------
 
 
-The possible operations are +, -, *, determinant, inverse, transpose, zero and identity
+The possible operations are +, -, *, determinant, inverse, transpose, zero, identity and random
 Please enter the operation you would like: 
 
 

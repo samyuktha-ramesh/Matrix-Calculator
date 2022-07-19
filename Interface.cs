@@ -18,7 +18,7 @@ namespace Matrix_Calculator
         Matrix operation(Matrix a, Matrix b);
     }
 
-    interface IEmptyMatriX
+    interface INewMatriX
     {
         Matrix createMatrix(int r, int c);
     }

@@ -63,7 +63,7 @@ namespace Matrix_Calculator
         public static void Main()
         {
             welcomeMsg();
-            WriteLine("The possible operations are +, -, *, determinant, inverse, transpose, zero and identity");
+            WriteLine("The possible operations are +, -, *, determinant, inverse, transpose, zero, identity and random");
             WriteLine("Please enter the operation you would like: ");
             string op = ReadLine();
             WriteLine();
@@ -199,7 +199,7 @@ namespace Matrix_Calculator
                         break;
                 }
             }
-            else if (op.ToLower() == "zero" || op.ToLower() == "identity")
+            else if (op.ToLower() == "zero" || op.ToLower() == "identity" || op.ToLower() == "random")
             {
                 switch (op.ToLower())
                 {
@@ -233,6 +233,27 @@ namespace Matrix_Calculator
 
                             IdentityMatrix id = new IdentityMatrix();
                             ans = id.createMatrix(h,h);
+                            printAns(ans);
+                        }
+                        catch
+                        {
+                            wrongInputFormat();
+                        }
+                        break;
+                    
+                    case "random":
+                        try
+                        {
+                            WriteLine("Enter height of required matrix:");
+                            int h = int.Parse(ReadLine());
+                            WriteLine();
+
+                            WriteLine("Enter width of required matrix:");
+                            int w = int.Parse(ReadLine());
+                            WriteLine();
+
+                            RandomMatrix r = new RandomMatrix();
+                            ans = r.createMatrix(h,w);
                             printAns(ans);
                         }
                         catch

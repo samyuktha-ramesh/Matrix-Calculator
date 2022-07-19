@@ -1,3 +1,6 @@
+using System;
+using static System.Console;
+
 namespace Matrix_Calculator
 {
 
@@ -282,7 +285,8 @@ namespace Matrix_Calculator
         }
     }
 
-    public class ZeroMatrix : IEmptyMatriX
+    //returns matrix of given dimensions filled with zeroes
+    public class ZeroMatrix : INewMatriX
     {
         public Matrix createMatrix(int r, int c)
         {
@@ -292,7 +296,8 @@ namespace Matrix_Calculator
         }
     }
 
-    public class IdentityMatrix : IEmptyMatriX
+    //returns identity matrix of given dimension
+    public class IdentityMatrix : INewMatriX
     {
         public Matrix createMatrix(int r, int c)
         {
@@ -309,6 +314,33 @@ namespace Matrix_Calculator
                     {
                         ans.arr[i,j] = 0;
                     }
+                }
+            }
+
+            return ans;
+        }
+    }
+
+    //returns matrix of given dimensions filled with random numbers
+    public class RandomMatrix : INewMatriX
+    {
+        public Matrix createMatrix(int r, int c)
+        {
+            WriteLine("Enter minimum value for an element in the matrix");
+            int mini = int.Parse(ReadLine());
+
+            WriteLine("Enter maximum value for an element in the matrix");
+            int maxi = int.Parse(ReadLine());
+            
+            Matrix ans = new Matrix(r,c);
+            
+            var rand = new System.Random();
+
+            for (int i = 0; i < r; i++)
+            {
+                for (int j = 0; j < c; j++)
+                {
+                    ans.arr[i,j] = rand.Next(mini, maxi+1);
                 }
             }
 

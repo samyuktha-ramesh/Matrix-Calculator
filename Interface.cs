@@ -1,6 +1,5 @@
 namespace Matrix_Calculator
 {
-
     interface IUnaryOperation
     {
         
@@ -13,7 +12,6 @@ namespace Matrix_Calculator
     {
 
         bool checkValidMatrices(Matrix a, Matrix b);
-
 
         Matrix operation(Matrix a, Matrix b);
     }

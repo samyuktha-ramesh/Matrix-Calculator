@@ -38,13 +38,29 @@ namespace Matrix_Calculator
 
         public static Matrix getMatrix()
         {
+            int h = 0;
+            int w = 0;
 
-            WriteLine("Enter height of matrix:");
-            int h = int.Parse(ReadLine());
+            while (h <= 0)
+            {
+                WriteLine("Enter height of matrix:");
+                h = int.Parse(ReadLine());
+                if (h <= 0)
+                {
+                    WriteLine("Height needs to be greater than zero. Please try again.");
+                }
+            }
             WriteLine();
 
-            WriteLine("Enter width of matrix:");
-            int w = int.Parse(ReadLine());
+            while (w <= 0)
+            {
+                WriteLine("Enter width of matrix:");
+                w = int.Parse(ReadLine());
+                if (w <= 0)
+                {
+                    WriteLine("Width needs to be greater than zero. Please try again.");
+                }
+            }
             WriteLine();
 
             Matrix a = new Matrix(h,w);
@@ -201,17 +217,34 @@ namespace Matrix_Calculator
             }
             else if (op.ToLower() == "zero" || op.ToLower() == "identity" || op.ToLower() == "random")
             {
+                int h = 0;
+                int w = 0;
+
                 switch (op.ToLower())
                 {
                     case "zero":
                         try
                         {
-                            WriteLine("Enter height of required matrix:");
-                            int h = int.Parse(ReadLine());
+                            while (h <= 0)
+                            {
+                                WriteLine("Enter height of required matrix:");
+                                h = int.Parse(ReadLine());
+                                if (h <= 0)
+                                {
+                                    WriteLine("Height needs to be greater than zero. Please try again.");
+                                }
+                            }
                             WriteLine();
 
-                            WriteLine("Enter width of required matrix:");
-                            int w = int.Parse(ReadLine());
+                            while (w <= 0)
+                            {
+                                WriteLine("Enter width of required matrix:");
+                                w = int.Parse(ReadLine());
+                                if (w <= 0)
+                                {
+                                    WriteLine("Width needs to be greater than zero. Please try again.");
+                                }
+                            }
                             WriteLine();
 
                             ZeroMatrix zero = new ZeroMatrix();
@@ -227,8 +260,15 @@ namespace Matrix_Calculator
                     case "identity":
                         try
                         {
-                            WriteLine("Enter height of required matrix:");
-                            int h = int.Parse(ReadLine());
+                            while (h <= 0)
+                            {
+                                WriteLine("Enter height of required matrix:");
+                                h = int.Parse(ReadLine());
+                                if (h <= 0)
+                                {
+                                    WriteLine("Height needs to be greater than zero. Please try again.");
+                                }
+                            }
                             WriteLine();
 
                             IdentityMatrix id = new IdentityMatrix();
@@ -244,12 +284,26 @@ namespace Matrix_Calculator
                     case "random":
                         try
                         {
-                            WriteLine("Enter height of required matrix:");
-                            int h = int.Parse(ReadLine());
+                            while (h <= 0)
+                            {
+                                WriteLine("Enter height of required matrix:");
+                                h = int.Parse(ReadLine());
+                                if (h <= 0)
+                                {
+                                    WriteLine("Height needs to be greater than zero. Please try again.");
+                                }
+                            }
                             WriteLine();
 
-                            WriteLine("Enter width of required matrix:");
-                            int w = int.Parse(ReadLine());
+                            while (w <= 0)
+                            {
+                                WriteLine("Enter width of required matrix:");
+                                w = int.Parse(ReadLine());
+                                if (w <= 0)
+                                {
+                                    WriteLine("Width needs to be greater than zero. Please try again.");
+                                }
+                            }
                             WriteLine();
 
                             RandomMatrix r = new RandomMatrix();

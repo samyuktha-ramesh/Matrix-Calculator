@@ -6,7 +6,6 @@ namespace Matrix_Calculator
 
     public class Addition : IBinaryOperation
     {
-
         // matrices need to have same dimensions for addition
         public bool checkValidMatrices(Matrix a, Matrix b)
         {    
@@ -19,7 +18,9 @@ namespace Matrix_Calculator
 
         public Matrix operation(Matrix a, Matrix b)
         {
+            // ans = a + b
             Matrix ans = new Matrix(a.height, a.width); 
+
             for (int i = 0 ; i < a.height ; i++)
             {
                 for (int j = 0; j < a.width ; j++)
@@ -46,7 +47,9 @@ namespace Matrix_Calculator
 
         public Matrix operation(Matrix a, Matrix b)
         {
+            // ans = a - b
             Matrix ans = new Matrix(a.height, a.width); 
+
             for (int i = 0 ; i < a.height ; i++)
             {
                 for (int j = 0; j < a.width ; j++)
@@ -72,6 +75,7 @@ namespace Matrix_Calculator
 
         public Matrix operation(Matrix a, Matrix b)
         {
+            // ans = a * b
             Matrix ans = new Matrix(a.height, b.width);
 
             for (int i = 0 ; i < a.height ; i++)
@@ -92,7 +96,7 @@ namespace Matrix_Calculator
 
     public class Transpose : IUnaryOperation
     {
-
+        // transpose can be found for any matrix
         public bool checkValidMatrix(Matrix a)
         {
             return true;
@@ -209,6 +213,7 @@ namespace Matrix_Calculator
             return false;
         }
 
+        // a matrix is singular if it does not have an inverse i.e its determinant is 0
         public bool isSingular(Matrix a){
             Determinant det = new Determinant();
 
@@ -252,7 +257,7 @@ namespace Matrix_Calculator
             //perform gauss-jordan elimination
             for (int i = 0; i < gj.height; i++)
             {
-                if (gj.arr[i,i] != 1) // if diagonal element is not 1 then divide rest of the row by the elemnt
+                if (gj.arr[i,i] != 1) // if diagonal element is not 1 then divide rest of the row by the element
                 {
                     double val = gj.arr[i,i];
                     for (int j = i+1; j < gj.width; j++)
@@ -274,6 +279,7 @@ namespace Matrix_Calculator
 
             Matrix ans = new Matrix(a.height, a.width);
 
+            //get only the right hand side of matrix i.e the inverse
             for (int i = 0; i < a.height; i++)
             {
                 for (int j = a.width; j < gj.width; j++)
@@ -281,13 +287,14 @@ namespace Matrix_Calculator
                     ans.arr[i, j-a.width] = gj.arr[i,j];
                 }
             }
+
             return ans;
         }
     }
 
-    //returns matrix of given dimensions filled with zeroes
     public class ZeroMatrix : INewMatriX
     {
+        //returns matrix of given dimensions filled with zeroes
         public Matrix createMatrix(int r, int c)
         {
             Matrix ans = new Matrix(r,c);
@@ -296,9 +303,9 @@ namespace Matrix_Calculator
         }
     }
 
-    //returns identity matrix of given dimension
     public class IdentityMatrix : INewMatriX
     {
+        //returns identity matrix of given dimension
         public Matrix createMatrix(int r, int c)
         {
             Matrix ans = new Matrix(r,c);
@@ -321,9 +328,9 @@ namespace Matrix_Calculator
         }
     }
 
-    //returns matrix of given dimensions filled with random numbers
     public class RandomMatrix : INewMatriX
     {
+        //returns matrix of given dimensions filled with random numbers
         public Matrix createMatrix(int r, int c)
         {
             WriteLine("Enter minimum value for an element in the matrix");

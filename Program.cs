@@ -86,9 +86,13 @@ namespace Matrix_Calculator
             {
                 return new Subtraction();
             }
-            else
+            else if (op == "*")
             {
                 return new Multiplication();
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -102,9 +106,13 @@ namespace Matrix_Calculator
             {
                 return new Inverse();
             }
-            else
+            else if (op == "transpose")
             {
                 return new Transpose();
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -118,9 +126,13 @@ namespace Matrix_Calculator
             {
                 return new IdentityMatrix();
             }
-            else
+            else if (op == "random")
             {
                 return new RandomMatrix();
+            }
+            else
+            {
+                return null;
             }
         }
 
@@ -134,8 +146,12 @@ namespace Matrix_Calculator
             Matrix a;
             Matrix b;
             Matrix ans;
+            IBinaryOperation binOp;
+            IUnaryOperation unaryOp;
+            INullaryOperation nullOp;
 
-            if (op == "+" || op == "-" || op == "*"){
+            if ((binOp = parseBinaryOperation(op)) != null)
+            {
                 try
                 {
                     WriteLine("1st Matrix");
@@ -152,8 +168,6 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                IBinaryOperation binOp = parseBinaryOperation(op);
-
                 if (binOp.checkValidMatrices(a,b))
                 {
                     ans = binOp.operation(a,b);
@@ -163,8 +177,7 @@ namespace Matrix_Calculator
                     exitMsg();
                 }
             }
-
-            else if (op == "transpose" || op == "determinant" || op == "inverse")
+            else if ((unaryOp = parseUnaryOperation(op)) != null)
             {
                 try
                 {
@@ -178,8 +191,6 @@ namespace Matrix_Calculator
                     return;
                 }
 
-                IUnaryOperation unaryOp = parseUnaryOperation(op);
-
                 if (unaryOp.checkValidMatrix(a))
                 {
                     ans = unaryOp.operation(a);
@@ -190,8 +201,7 @@ namespace Matrix_Calculator
                     exitMsg();
                 }
             }
-
-            else if (op == "zero" || op == "identity" || op == "random")
+            else if ((nullOp = parseNullOperation(op)) != null)
             {
                 int h = 0;
                 int w = 0;
@@ -226,16 +236,14 @@ namespace Matrix_Calculator
                         }
                         WriteLine();
                     }
+
+                    ans = nullOp.createMatrix(h,w);
+                    printAns(ans);
                 }
                 catch
                 {
                     wrongInputFormat();
                 }
-
-                INullaryOperation nullOp = parseNullOperation(op);
-
-                ans = nullOp.createMatrix(h,w);
-                printAns(ans);
             }
             else{
                 WriteLine("No such operation exists.");

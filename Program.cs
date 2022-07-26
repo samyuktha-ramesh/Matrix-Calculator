@@ -1,12 +1,13 @@
-﻿using System;
-using static System.Console;
+﻿using static System.Console;
+using System;
 
 namespace Matrix_Calculator 
 {
-
     class Program 
     {
-
+        /**
+         * <summary>Prints welcome message at start of program.</summary>
+         */
         public static void welcomeMsg()
         {
             WriteLine();
@@ -15,6 +16,9 @@ namespace Matrix_Calculator
             WriteLine();
         }
 
+        /**
+         * <summary>Prints error message if input dimensions are not integers.</summary>
+         */
         public static void wrongInputFormat()
         {
             WriteLine();
@@ -22,13 +26,19 @@ namespace Matrix_Calculator
             exitMsg();
         }
 
+        /**
+         * <summary>Prints exit message before end of program.</summary>
+         */
         public static void exitMsg()
         {
             WriteLine("Exiting the program. Please try again.");
             WriteLine();
         }
 
-
+        /**
+         * <summary>Prints formatted matrix.</summary>
+         * <param name="ans">Instance of <c>Matrix</c> to be printed.</param>
+         */
         public static void printAns(Matrix ans)
         {
             WriteLine("Answer:");
@@ -36,6 +46,10 @@ namespace Matrix_Calculator
             ans.print();
         }
 
+        /**
+         * <summary>Creates Matrix from user input.</summary>
+         * <returns>Instance of <c>Matrix</c>.</returns>
+         */
         public static Matrix getMatrix()
         {
             int h = 0;
@@ -76,6 +90,11 @@ namespace Matrix_Calculator
             return a;
         }
 
+        /*
+         * <summary>Parses binary operator.</summary>
+         * <param name="op">Operator to be parsed.</param>
+         * <returns>Instance of <c>IBinaryOperation</c>.</returns>
+         */
         public static IBinaryOperation parseBinaryOperation(string op)
         {
             if (op == "+")
@@ -96,6 +115,11 @@ namespace Matrix_Calculator
             }
         }
 
+        /*
+         * <summary>Parses unary operator.</summary>
+         * <param name="op">Operator to be parsed.</param>
+         * <returns>Instance of <c>IUnaryOperation</c>.</returns>
+         */
         public static IUnaryOperation parseUnaryOperation(string op)
         {
             if (op == "determinant")
@@ -116,6 +140,11 @@ namespace Matrix_Calculator
             }
         }
 
+        /*
+         * <summary>Parses nullary operator.</summary>
+         * <param name="op">Operator to be parsed.</param>
+         * <returns>Instance of <c>INullaryOperation</c>.</returns>
+         */
         public static INullaryOperation parseNullOperation(string op)
         {
             if (op == "zero")
@@ -136,6 +165,9 @@ namespace Matrix_Calculator
             }
         }
 
+        /*
+         * <summary>Main entry point for the program.</summary>
+         */
         public static void Main()
         {
             welcomeMsg();
@@ -250,6 +282,5 @@ namespace Matrix_Calculator
                 exitMsg();
             }
         }
-
     }
 }

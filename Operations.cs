@@ -1,12 +1,18 @@
-using System;
 using static System.Console;
+using System;
 
 namespace Matrix_Calculator
 {
-
+    /**
+     * <summary>Represents addition operation for matrices.</summary>
+     */
     public class Addition : IBinaryOperation
     {
-        // matrices need to have same dimensions for addition
+        /**
+         * <summary>True if both matrices have the same dimensions.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+         * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+         */
         public bool checkValidMatrices(Matrix a, Matrix b)
         {    
             if (a.height == b.height && a.width == b.width)
@@ -18,6 +24,12 @@ namespace Matrix_Calculator
             return false;
         }
 
+        /**
+         * <summary>Adds two matrices.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+         * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+         * <returns>Instance of <c>Matrix</c> representing the sum of two matrices.</returns>
+         */
         public Matrix operation(Matrix a, Matrix b)
         {
             // ans = a + b
@@ -34,10 +46,17 @@ namespace Matrix_Calculator
         }
     }
 
+    /**
+     * <summary>Represents subtraction operation for matrices.</summary>
+     */
     public class Subtraction : IBinaryOperation
     {
 
-        // matrices need to have same dimensions for subtraction
+        /**
+         * <summary>True if both matrices have the same dimensions.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+         * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+         */
         public bool checkValidMatrices(Matrix a, Matrix b)
         {    
             if (a.height == b.height && a.width == b.width)
@@ -49,6 +68,12 @@ namespace Matrix_Calculator
             return false;
         }
 
+         /**
+          * <summary>Subtracts two matrices.</summary>
+          * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+          * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+          * <returns>Instance of <c>Matrix</c> representing the difference of two matrices.</returns>
+          */
         public Matrix operation(Matrix a, Matrix b)
         {
             // ans = a - b
@@ -65,9 +90,16 @@ namespace Matrix_Calculator
         }
     }
 
-    public class Multiplication : IBinaryOperation{
-
-        //width of first matrix must be equal to the height of second matrix
+    /**
+     * <summary>Represents multiplication operation for matrices.</summary>
+     */
+    public class Multiplication : IBinaryOperation
+    {
+        /**
+         * <summary>True if the width of the first matrix is equal to the height of the second matrix.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+         * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+         */
         public bool checkValidMatrices(Matrix a, Matrix b)
         {
             if (a.width == b.height)
@@ -79,6 +111,12 @@ namespace Matrix_Calculator
             return false;
         }
 
+         /**
+          * <summary>Multiplies two matrices.</summary>
+          * <param name="a">Instance of <c>Matrix</c> the first matrix.</param>
+          * <param name="b">Instance of <c>Matrix</c> the second matrix.</param>
+          * <returns>Instance of <c>Matrix</c> representing the product of two matrices.</returns>
+          */
         public Matrix operation(Matrix a, Matrix b)
         {
             // ans = a * b
@@ -100,14 +138,25 @@ namespace Matrix_Calculator
 
     }
 
+    /**
+     * <summary>Represents transpose operation for matrices.</summary>
+     */
     public class Transpose : IUnaryOperation
     {
-        // transpose can be found for any matrix
+        /**
+         * <summary>Always true because tranpose can be found for all matrices.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the matrix to be transposed.</param>
+         */
         public bool checkValidMatrix(Matrix a)
         {
             return true;
         }
 
+        /**
+         * <summary>Finds tranpose of a matrix.</summary>
+         * <param name="a">Instance of <c>Matrix</c> the matrix to be transposed.</param>
+         * <returns>Instance of <c>Matrix</c> representing the tranpose of the matrix.</returns>
+         */
         public Matrix operation(Matrix a)
         {
             // transpose of 2x3 matrix is a 3x2 matrix
@@ -122,11 +171,17 @@ namespace Matrix_Calculator
             }
             return ans;
         }
-    }
+    }   
 
+    /**
+     * <summary>Represents determinant operation for matrices.</summary>
+     */
     public class Determinant : IUnaryOperation
     {
-        // determinant can only be found for square matrices
+        /**
+         * <summary>True if matrix is square.</summary>
+         * <param name="a">Instance of <c>Matrix</c></param>
+         */
         public bool checkValidMatrix(Matrix a)
         {
             if (a.isSquare())
@@ -138,8 +193,13 @@ namespace Matrix_Calculator
             return false;
         }
 
-        //input : matrix of order n, row, column
-        //output : submatrix i.e matrix of order n-1, with mentioned row and column removed
+        /**
+         * <summary>Finds submatrix of a matrix by removing specified row and column.</summary>
+         * <param name="a">Instance of <c>Matrix</c> of order n.</param>
+         * <param name="row">Row to omit.</param>
+         * <param name="col">Column to omit.</param>
+         * <returns>Instance of <c>Matrix</c> representing the submatrix (of order n-1) of the matrix.</returns>
+         */
         public Matrix subMatrix(Matrix a, int row, int col)
         {
             Matrix sub = new Matrix(a.height-1, a.width-1);
@@ -166,6 +226,12 @@ namespace Matrix_Calculator
             return sub;
         }
 
+        /**
+         * <summary>Finds the sign of the element at given position.</summary>
+         * <param name="row">Row number of element.</param>
+         * <param name="col">Column number of element.</param>
+         * <returns>1 or -1 representing positive or negative.</returns>
+         */
         public int sign(int row, int col)
         {
             if((row + col) % 2 == 0)
@@ -178,7 +244,11 @@ namespace Matrix_Calculator
             }
         }
 
-        // recursive function to find determinant
+        /**
+         * <summary>Recursive function to find the determinant of a matrix.</summary>
+         * <param name="a">Instance of <c>Matrix</c></param>
+         * <returns>An integer representing the determinant of the matrix.</returns>
+         */
         public Matrix operation(Matrix a)
         {
             Matrix ans = new Matrix(1,1);
@@ -215,9 +285,15 @@ namespace Matrix_Calculator
         }
     }
 
+    /**
+     * <summary>Represents inverse operation for matrices.</summary>
+     */
     public class Inverse : IUnaryOperation
     {
-        // inverse requires square matrices
+        /**
+         * <summary>True if matrix is square.</summary>
+         * <param name="a">Instance of <c>Matrix</c></param>
+         */
         public bool checkValidMatrix(Matrix a)
         {
             if (a.isSquare())
@@ -235,7 +311,10 @@ namespace Matrix_Calculator
             return false;
         }
 
-        // a matrix is singular if it does not have an inverse i.e its determinant is 0
+        /**
+        * <summary>Returns true if matrix is singular (does not have an inverse) i.e its determinant is 0.</summary>
+        * <param name="a">Instance of <c>Matrix</c></param>
+        */
         public bool isSingular(Matrix a){
             Determinant det = new Determinant();
 
@@ -248,6 +327,11 @@ namespace Matrix_Calculator
             return false;
         }
 
+        /**
+        * <summary>Performs Gauss-Jordan elimination to find the inverse of a matrix.</summary>
+        * <param name="a">Instance of <c>Matrix</c></param>
+        * <returns>Instance of <c>Matrix</c> that is the inverse of a.</returns>
+        */
         public Matrix operation(Matrix a)
         {
             //matrix gauss-jordan elimination
@@ -316,9 +400,17 @@ namespace Matrix_Calculator
         }
     }
 
+    /**
+     * <summary>Represents zero matrix builder.</summary>
+     */
     public class ZeroMatrix : INullaryOperation
     {
-        //returns matrix of given dimensions filled with zeroes
+        /**
+          * <summary>Creates matrix filled with zeroes.</summary>
+          * <param name="r">Number of rows.</param>
+          * <param name="c">Number of columns.</param>
+          * <returns>Instance of <c>Matrix</c>, with r rows and c columns, filled with zeroes</returns>
+          */
         public Matrix createMatrix(int r, int c)
         {
             Matrix ans = new Matrix(r,c);
@@ -327,9 +419,17 @@ namespace Matrix_Calculator
         }
     }
 
+    /**
+     * <summary>Represents identity matrix builder.</summary>
+     */
     public class IdentityMatrix : INullaryOperation
     {
-        //returns identity matrix of given dimension
+        /**
+          * <summary>Creates matrix with 1s in its diagonals and remaining 0s.</summary>
+          * <param name="r">Number of rows.</param>
+          * <param name="c">Number of columns.</param>
+          * <returns>Instance of <c>Matrix</c>, with r rows and c columns,with 1s in its diagonals and remaining 0s.</returns>
+          */
         public Matrix createMatrix(int r, int c)
         {
             Matrix ans = new Matrix(r,c);
@@ -352,9 +452,17 @@ namespace Matrix_Calculator
         }
     }
 
+    /**
+     * <summary>Represents random matrix builder.</summary>
+     */
     public class RandomMatrix : INullaryOperation
     {
-        //returns matrix of given dimensions filled with random numbers
+         /**
+          * <summary>Creates matrix filled with random numbers between a given range</summary>
+          * <param name="r">Number of rows.</param>
+          * <param name="c">Number of columns.</param>
+          * <returns>Instance of <c>Matrix</c>, with r rows and c columns, filled with random numbers.</returns>
+          */
         public Matrix createMatrix(int r, int c)
         {
             WriteLine("Enter minimum value for an element in the matrix");

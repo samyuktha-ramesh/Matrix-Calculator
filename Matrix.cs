@@ -1,10 +1,12 @@
-using System;
 using static System.Console;
+using System;
 using System.Collections.Generic;
 
 namespace Matrix_Calculator
 {
-
+    /**
+     * <summary>Represents a Matrix.</summary>
+     */
     public class Matrix
     {
         public int height;
@@ -18,11 +20,18 @@ namespace Matrix_Calculator
             arr = new double [h,w];
         }
 
+        /**
+         * <summary>True if Matrix is a square i.e if its height equals its width.</summary>
+         */
         public bool isSquare()
         {
             return height == width;
         }
 
+        /**
+         * <summary>Reads lines from input and stores as Matrix rows.</summary>
+         * <returns>Boolean value true if line read successfully or false if wrong size.</returns>
+         */
         public bool read()
         {
             for (int i = 0 ; i < height ; i++)
@@ -42,6 +51,10 @@ namespace Matrix_Calculator
             return true;
         }
 
+        /**
+         * <summary>Finds the longest element of the matrix.</summary>
+         * <returns>Integer representing length of the element.</returns>
+         */
         public int longestElem(){
             int l = 0;
             for (int i = 0; i < height; i++)
@@ -57,7 +70,9 @@ namespace Matrix_Calculator
             return l;
         }
 
-        // print out matrix
+        /**
+         * <summary>Prints the formatted matrix.</summary>
+         */
         public void print()
         {
             int l = longestElem();

@@ -1,5 +1,7 @@
 # Matrix-Calculator
 
+Matrix calculator implemented in C#.
+
 # Example Use
 ```
 > dotnet run

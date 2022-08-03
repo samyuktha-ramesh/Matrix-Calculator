@@ -1,5 +1,3 @@
-a description that would explain the process of adding new algorithm.
-
 # Matrix Class
 Matrices in the program are stored as objects that have 2-dimensional arrays that hold values of the type double. Each matrix object has three further properties associated with them.
 1) height: This is the number of rows. It is of type int.

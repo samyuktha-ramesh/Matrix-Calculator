@@ -12,20 +12,17 @@ namespace Matrix_Calculator
         public int height;
         public int width;
         public double [,] arr;
+        public bool square = false;
 
         public Matrix(int h, int w)
         {
             height = h;
             width = w;
             arr = new double [h,w];
-        }
-
-        /**
-         * <summary>True if Matrix is a square i.e if its height equals its width.</summary>
-         */
-        public bool isSquare()
-        {
-            return height == width;
+            if (h == w)
+            {
+                square = true;
+            }
         }
 
         /**

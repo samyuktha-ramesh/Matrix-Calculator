@@ -184,7 +184,7 @@ namespace Matrix_Calculator
          */
         public bool checkValidMatrix(Matrix a)
         {
-            if (a.isSquare())
+            if (a.square)
             {
                 return true;
             }
@@ -296,7 +296,7 @@ namespace Matrix_Calculator
          */
         public bool checkValidMatrix(Matrix a)
         {
-            if (a.isSquare())
+            if (a.square)
             {
                 if (isSingular(a))
                 {
